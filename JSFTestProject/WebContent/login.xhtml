@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+
+	<ui:define name="content">
+	
+		<h:form>
+
+			<h:outputText value="Logon Screen"></h:outputText>
+			<h:messages style="color:red; font-size:12px;"/>
+
+			<h:panelGrid columns="3">
+
+				<h:outputText value="Name"></h:outputText>				
+				<h:inputText
+					id="name"
+					label="Name input field"
+					value="#{loginBean.name}"
+					required="true"
+					requiredMessage="#{loginBean.errMessage}"
+					valueChangeListener="#{loginBean.nameChangeListener}">
+					
+					<f:validateLength minimum="5"/>
+					<f:validator validatorId="com.tutorial.NameCustomValidator"/>					
+				</h:inputText>				
+				<h:message for="name" style="color:red" />
+
+				<h:outputText value="Password"></h:outputText>				
+				<h:inputSecret
+					id="password"
+					value="#{loginBean.password}"
+					required="true"
+					requiredMessage="#{loginBean.errMessage}">
+				</h:inputSecret>				
+				<h:message for="password" style="color:red" />
+
+				<h:outputText value="Select A Human"></h:outputText>				
+				<h:selectOneMenu value="#{loginBean.selectedUser}">
+	            	<f:selectItems value="#{loginBean.myUsers }"/>
+	            </h:selectOneMenu>
+	            
+				<h:selectManyCheckbox
+					id="checkboxes"
+					layout="pageDirection"
+					value="#{loginBean.items}">
+					<f:selectItems value="#{loginBean.myItems}"/>
+				</h:selectManyCheckbox>
+	            
+
+			</h:panelGrid>
+
+			<h:outputLabel for="button" value="Hit 'login' to continue">
+				<h:commandButton
+					id="button"
+					value="Login"
+					action="#{loginBean.checkCredentials}">
+				</h:commandButton>
+			</h:outputLabel>
+			
+			
+			<h:outputLabel for="link" value=" or exit ">
+				<h:outputLink id="link" value="NewFile.xhtml">click here</h:outputLink>
+			</h:outputLabel>
+			
+ 						
+			
+		</h:form>
+				
+
+	</ui:define>
+	
+</ui:composition>
+
+</html>
